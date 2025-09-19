@@ -1,0 +1,87 @@
+\documentclass[12pt]{book}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry}  % Per modificare i margini
+\usepackage{setspace} %per l'interlinea
+
+\usepackage[utf8]{inputenc}  % Per gli accenti
+\usepackage[italian]{babel}  % Per la lingua
+\usepackage{lipsum}          % Testo fittizio  
+% \usepackage{indentfirst}     % Fa partire i paragrafi col rientro
+\usepackage{hyperref}        % Per link cliccabili nell'indice
+\usepackage[normalem]{ulem} % per sottolineare
+\usepackage{soul}     % Per evidenziare testo
+\usepackage{xcolor}   % Per i colori
+
+\setcounter{secnumdepth}{4} % Imposta il livello massimo di sezioni che verranno numerate.
+                            % 0 = \part
+                            % 1 = \section
+                            % 2 = \subsection
+                            % 3 = \subsubsection
+                            % 4 = \paragraph
+                            % 5 = \subparagraph (se disponibile)
+                            
+\setcounter{tocdepth}{4}    % Imposta il livello massimo di sezioni che verranno mostrate nell'indice (table of contents).
+                            % Stessi livelli di sopra: 4 = mostra fino ai \paragraph nell'indice.
+
+
+
+
+
+% Margini personalizzati
+\geometry{
+  a4paper,
+  left=2cm,
+  right=2cm,
+  top=2cm,
+  bottom=2cm
+}
+
+\title{Informatica Giuridica}
+\author{Antonio Runcio}
+\date{April 2025}
+
+
+% \includeonly{10_cap_1} % Per compilare solo un capitolo specifico, utile per la revisione
+%-----------------------------------------------------------------------------------------%
+\begin{document}
+
+\frontmatter % Numerazione in numeri romani
+% \tableofcontents % Indice
+
+\mainmatter  % Numerazione normale
+\pagestyle{plain} % numeri di pagina in basso al centro
+
+
+
+\include{10_cap_1}
+% \include{20_cap_2}
+% \include{30_cap_3}
+% \include{40_cap_4}
+% \include{50_cap_5}
+% \include{60_cap_6}
+% \include{70_cap_7}
+% \include{80_cap_8}
+% \include{90_cap_9}
+% \include{100_cap_10}
+% \include{110_cap_11}
+% \include{120_cap_12}
+% \include{130_cap_13}
+% \include{140_cap_14}
+% \include{150_cap_15}
+% \include{160_cap_16}
+% \include{170_cap_17}
+% \include{180_cap_18}
+% \include{190_cap_19}
+% \include{200_CI_20241014_Diritti_umani_internet}
+
+
+
+
+\include{999_tutorial_comandi}
+
+\onehalfspacing
+
+
+
+
+\end{document}
