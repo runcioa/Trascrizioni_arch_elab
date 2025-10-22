@@ -2,7 +2,7 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{geometry}  % Per modificare i margini
 \usepackage{setspace} %per l'interlinea
-
+\usepackage{float}  % Per posizionare le figure esattamente dove vogliamo
 \usepackage[utf8]{inputenc}  % Per gli accenti
 \usepackage[italian]{babel}  % Per la lingua
 \usepackage{lipsum}          % Testo fittizio  
@@ -11,6 +11,7 @@
 \usepackage[normalem]{ulem} % per sottolineare
 \usepackage{soul}     % Per evidenziare testo
 \usepackage{xcolor}   % Per i colori
+\usepackage{wrapfig}    % testo attorno alle immagini
 
 \setcounter{secnumdepth}{4} % Imposta il livello massimo di sezioni che verranno numerate.
                             % 0 = \part
@@ -54,7 +55,7 @@
 
 
 \include{10_cap_1}
-% \include{20_cap_2}
+\include{20_cap_2}
 % \include{30_cap_3}
 % \include{40_cap_4}
 % \include{50_cap_5}
@@ -74,10 +75,6 @@
 % \include{190_cap_19}
 % \include{200_CI_20241014_Diritti_umani_internet}
 
-
-
-
-\include{999_tutorial_comandi}
 
 \onehalfspacing
 
