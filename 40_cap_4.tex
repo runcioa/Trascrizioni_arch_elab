@@ -300,65 +300,251 @@ Analogamente la scrittura è fatta attraverso la carica di un condensatore che a
 
 Però in generale i vantaggi di densità e costo delle DRAM compensano quasi sempre, spesso almeno, la lentezza intrinseca del processo e quindi le RAM dinamiche sono utilizzate per le memorie principali delle architetture di elaborazione in quasi tutti i casi, salvo in quei casi tipo piccoli microcontrollori a basso consumo, dove si preferisce utilizzare ancora delle SRAM perché in condizioni diciamo normali, senza commutazione, non sono soggetti a significative perdite di potenza. Al contrario le DRAM devono essere rinfrescate e quindi intrinseicamente dissipano.
 %25:01
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth,
+                    trim=50 60 40 50, % L B R T
+                    clip]
+                    {images/Lez04_p04_fig_03.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p04_fig_03}
+\end{figure}
+\FloatBarrier
+\noindent
+
 Vediamo quindi il funzionamento dei chip di RAM dinamiche.
 In lettura la carica della cella sulla riga selezionata è misurata dai circuiti di sense, cioè leggendo la capacità, 1 o 0 se la carica è al di sopra o al di sotto di una soglia.
-La lettura stessa altra alla carica della cella e quindi impone il rinfresco della riga, quindi è necessario leggere la riga e prendere il valore e riscriverlo nuovamente attraverso la linea di bit, in questo caso una sola linea di bit.
+La lettura stessa altera la carica della cella e quindi impone il rinfresco della riga, quindi è necessario leggere la riga e prendere il valore e riscriverlo nuovamente attraverso la linea di bit, in questo caso una sola linea di bit.
 In scrittura si accede alla riga e si pilotano le righe di bit, diciamo di tutta la parola.
 Anche questa scrittura viene coi tempi caratteristici della carica di un condensatore, cioè comune esponenziale.
-Occorre rinfrescare periodicamente anche se nulla viene letto, perché, come vi ho detto, vi è una intrinseca dissipazione attraverso il dielectrico del condensatore e attraverso, eventualmente anche se in piccola, quantità attraverso la porta del transistor che abilita il condensatore.
-Vediamo quindi come è realizzata una drum, in questo caso 32 Mega per 8, questo chip.
-In questo caso vediamo via un row address latch, un column address latch, cioè un latch che memorizza temporaneamente la parte di riga e la parte di colonne, gli indirizzi sono separati fra riga e colonne, si utilizzano due segnali che saranno fondamentali per chiunque pensa di guardare una memoria, i cosiddetti RAS e CAS, row address strobe e column address strobe ancora attivi bassi, vi è un decoder degli indirizzi di riga che seleziona la cella, analogamente un decoder di colonna, in questo caso avevamo un multiplexer, nell'altro caso in questo caso utilizziamo un decoder, ma vedete che non cambia molto nella questione, e ancora nuovamente i circuiti di sensor ride, la nostra cella costituita di 16.384 righe per 2.048 colonne, cioè 11 linee di bit per le colonne e 24 per le righe, quindi il progettista ha preferito utilizzare questo, scusate non 24, ma 14 linee di riga e 11 di colonna, in questo caso vedete in 14 bit per selezionare righe e 11 per selezionare la colonna.
-Per risparmiare i pin è possibile multiplare le righe e le colonne sugli stessi i piedini, anche nelle drum, e questo è quello che tipicamente avviene, perché i piedini sono importanti, perché determinano il costo del circuito, i leccio di riga e colonna memorizzano i bit di indirizzo per tenere gli indirizzi più stabili, i segnali di memorizzazione degli indirizzi di riga e di colonna sono assediti bassi, notate che la multiplazione di indirizzi di riga e di colonna di fatto impone l'esistenza di almeno un leccio, in questo caso ne utilizziamo due, perché prima scriviamo l'indirizzo di riga, poi selezioniamo l'indirizzo di colonna, è chiaro che l'indirizzo di riga deve essere in qualche modo memorizzato.
-Queste sono le cosiddette drum asincrone, hanno un ritardo di accesso legato ai tempi di scrittura delle righe e di colonne, un controllore esterno legge e periodicamente rinfresca tutte le memorie, sono state le prime drum a essere utilizzate.
+Occorre rinfrescare periodicamente anche se nulla viene letto, perché, come vi ho detto, vi è una intrinseca dissipazione attraverso il dielectrico del condensatore e attraverso, eventualmente anche se in piccola quantità attraverso la porta del transistor che abilita il condensatore.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth,
+                    trim=50 30 90 50, % L B R T
+                    clip]
+                    {images/Lez04_p04_fig_04.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p04_fig_04}
+\end{figure}
+\FloatBarrier
+\noindent
+
+Vediamo quindi come è realizzata una DRAM, in questo caso 32 Mega per 8, questo chip.
+In questo caso c'è un row address latch, un column address latch, cioè un latch che memorizza temporaneamente la parte di riga e la parte di colonne, gli indirizzi sono separati fra riga e colonne, si utilizzano due segnali che saranno fondamentali per chiunque pensa di guardare una memoria, i cosiddetti RAS e CAS, row address strobe e column address strobe ancora attivi bassi, vi è un decoder degli indirizzi di riga che seleziona la cella, analogamente un decoder di colonna, in questo caso avevamo un multiplexer, in questo caso utilizziamo un decoder, ma vedete che non cambia molto nella questione, e ancora nuovamente i circuiti di sense e write, la nostra cella costituita di 16.384 righe per 2.048 colonne, cioè 11 linee di bit per le colonne e 14 per le righe, quindi il progettista ha preferito utilizzare 14 linee di riga e 11 di colonna.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth,
+                    trim=40 30 20 40, % L B R T
+                    clip]
+                    {images/Lez04_p04_fig_05.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p04_fig_05}
+\end{figure}
+\FloatBarrier
+\noindent
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth,
+                    trim=40 30 20 40, % L B R T
+                    clip]
+                    {images/Lez04_p04_fig_06.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p04_fig_06}
+\end{figure}
+\FloatBarrier
+\noindent
+
+Per risparmiare i pin è possibile multiplare le righe e le colonne sugli stessi i piedini, anche nelle DRAM, e questo è quello che tipicamente avviene, perché i piedini sono importanti, perché determinano il costo del circuito.
+I latch di riga e colonna memorizzano i bit di indirizzo per tenere gli indirizzi più stabili.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth,
+                    trim=40 30 20 40, % L B R T
+                    clip]
+                    {images/Lez04_p05_fig_01.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p05_fig_01}
+\end{figure}
+\FloatBarrier
+\noindent
+
+I segnali di memorizzazione degli indirizzi di riga e di colonna sono asseriti bassi, notate che la multiplazione di indirizzi di riga e di colonna di fatto impone l'esistenza di almeno un latch, in questo caso ne utilizziamo due, perché prima scriviamo l'indirizzo di riga, poi selezioniamo l'indirizzo di colonna, è chiaro che l'indirizzo di riga deve essere in qualche modo memorizzato.
+Queste sono le cosiddette DRAM asincrone, hanno un ritardo di accesso legato ai tempi di scrittura delle righe e di colonne, un controllore esterno legge e periodicamente rinfresca tutte le memorie, sono state le prime DRAM ad essere utilizzate.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth,
+                    trim=40 30 20 40, % L B R T
+                    clip]
+                    {images/Lez04_p05_fig_02.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p05_fig_02}
+\end{figure}
+\FloatBarrier
+\noindent
+
 Nell'esempio precedente tutte le 16.384 celle su una riga vengono accedute contemporaneamente e rinfrescate periodicamente perché il dato venga mantenuto.
 Notate che però solo 8 bit di dati vengono trasferiti per ogni ciclo di indirizzamento e di riga, quindi ogni volta bisogna applicare un RAS e un CAS per prendere una semplice parola di 8 bit di dato.
 Notate che quindi sono necessarie due operazioni di scrittura sul basso indirizzo per accedere a un dato in lettura o scrivere il dato in fase di scrittura.
 Vi accorgete che questo ha chiaramente dei costi in termini di tempo e vi do quindi il solito spunto per la riflessione e vi invito a pensare come si potrebbe incrementare la velocità rispetto al funzionamento asincrono.
-Prendete ora un attimo il vostro tempo prima di proseguire nella lezione e riflettete a questa domanda.
-Riflettete un attimino che poi la risposta ve la do, però non proseguite nella lezione senza esservi un attimo sforzati.
-Passiamo quindi ad affrontare l'argomento delle RAM SYNCHRON o Synchronous Dynamic RAMs RAM in inglese.
+
+\subsection{RAM Sincrone (SDRAM)}
+
+Passiamo quindi ad affrontare l'argomento delle RAM sincrone o Synchronous Dynamic RAMs RAM in inglese.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.70\textwidth,
+                    trim=40 30 20 40, % L B R T
+                    clip]
+                    {images/Lez04_p05_fig_05.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p05_fig_05}
+\end{figure}
+\FloatBarrier
+\noindent
+
 Nei primi anni 90 la tecnologia delle DRAM migliorò con l'introduzione di un segnale di clock all'ingresso delle DRAM.
-Fu aggiunta ulteriore circuiteria per la sincronizzazione e questi circuiti integrati così sincronizzati da un clock sono chiamati Synchronous DRAM o DRAM.
+Fu aggiunta ulteriore circuiteria per la sincronizzazione e questi circuiti integrati così sincronizzati da un clock sono chiamati Synchronous DRAM o SDRAM.
 Vediamo come è costituita questa DRAM diciamo nella configurazione semplice.
-Ancora abbiamo il raw address latch perché le righe e le colonne sono multiplexate e l'abilitazione è sempre determinata da RAS e CAS.
-Però in aggiunta al raw address latch, cioè l'atch dell'indirizzo di riga, si mette un contatore di rinfresco che va a scandire quindi gli indirizzi.
-Quindi questo è un contatore aggiuntivo.
-C'è un ulteriore contatore di colonne e poi a valle di questi vi sono dei decoder.
-Qui c'è la cella di array e quindi qui ancora i vari circuiti di read write, sense e dei latch.
-La cosa interessante è che in uscita non vi è l'uscita direttamente attraverso un decoder o un multiplexer come abbiamo visto precedentemente, ma vi sono dei registri, dei registri synchroni rispetto al clock.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth,
+                    trim=40 30 20 40, % L B R T
+                    clip]
+                    {images/Lez04_p05_fig_06.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p05_fig_06}
+\end{figure}
+\FloatBarrier
+\noindent
+
+Ancora abbiamo il raw address latch perché le righe e le colonne sono multiplexate e l'abilitazione è sempre determinata da RAS e CAS, in aggiunta al raw address latch, cioè al latch dell'indirizzo di riga, si mette un contatore di rinfresco che va a scandire quindi gli indirizzi. Quindi questo è un contatore aggiuntivo.
+
+C'è un ulteriore contatore di colonne e poi a valle di questi vi sono dei decoder. Qui c'è la cella di array e quindi qui ancora i vari circuiti di read write, sense e dei latch.
+
+La cosa interessante è che in uscita non vi è l'uscita direttamente attraverso un decoder o un multiplexer come abbiamo visto precedentemente, ma vi sono dei registri sincroni rispetto al clock.
 Qui è un data input register, cioè un registro in fase di ingresso e un registro in fase di uscita.
 Una sequenza di circuterie aggiuntive che producono i sincronismi per tutto questo circuito clock, RAS e CAS negati, read write e chip select.
 Quindi il sistema aumenta in termini di variabili in ingresso perché c'è anche il clock e soprattutto aumenta perché vi sono due registri dei dati e due contatori per definire gli indirizzi che non vengono più mandati semplicemente ma vengono anche aggiornati internamente.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth,
+                    trim=0 0 0 0, % L B R T
+                    clip]
+                    {images/Lez04_p06_fig_01.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p06_fig_01}
+\end{figure}
+\FloatBarrier
+\noindent
+
+
 In questo caso i circuiti di sense hanno una funzione di latching del dato e ulteriori vantaggi da immagazzinamento interno e disponibilità di clock e di sincronizzazione permettono di aumentare il flusso dei dati, la velocità del flusso dei dati.
 Il contatore di riga interno consente il rinfresco delle celle di memoria indipendentemente da un controllore esterno.
-Come avevo detto nelle drum asincrone era necessario produrre da un controllore esterno la sequenza con RAS e CAS per rinfrescare tutta la celle.
-In questo caso deve solo arrivare un comando di rinfresco, il refresh counter fa la scansione degli indirizzi di riga e quindi vengono rischiti qua, si fa la scansione della celle e analogamente il contatore di indirizzi di colonna fa il rinfresco.
-E quindi è anche possibile fare il rinfresco senza dover mandare in continuazione dall'esterno i segnali di riga, colon, RAS e CAS.
-Notate che questo oltre ad avere una semplificazione per il controllore della memoria esterna, riduce anche il consumo di potenza perché non è più necessario scrivere ripetutamente gli indirizzi di riga e di colonna e asserire RAS e CAS attraverso magari delle piste lunghe diverse centimetri, quindi dotate di una capacità e per ogni capacità c'è un mezzo CV quadro di energia dissipata per ogni commutazione.
+Come avevo detto nelle DRAM asincrone era necessario produrre da un controllore esterno la sequenza con RAS e CAS per rinfrescare tutta la celle.
+In questo caso deve solo arrivare un comando di rinfresco, il refresh counter fa la scansione degli indirizzi di riga e quindi vengono riscritti, si fa la scansione della celle e analogamente il contatore di indirizzi di colonna fa il rinfresco.
+
+E quindi è anche possibile fare il rinfresco senza dover mandare in continuazione dall'esterno i segnali di riga e colonna RAS e CAS.
+Notate che questo oltre ad avere una semplificazione per il controllore della memoria esterna, riduce anche il consumo di potenza perché non è più necessario scrivere ripetutamente gli indirizzi di riga e di colonna e asserire RAS e CAS attraverso magari delle piste lunghe diverse centimetri, quindi dotate di una capacità e per ogni capacità c'è un $1/2*C*V^2$ di energia dissipata per ogni commutazione.
 In questo caso viene tutto realizzato internamente e quindi può procedere più rapidamente oppure semplicemente dissipare meno.
 In generale sono vere entrambe le cose, cioè si dissipa meno e si può realizzare il rinfresco in maniera più rapida.
-E' importante che l'esistenza dei contatori di colonna permettono di scandire la riga e non si possa dover riasserire nuovamente il segnale di ROW ad DRE STROBE per indirizzi contigui sulla stessa riga.
-Questo permette il trasferimento di più parole aventi della stessa riga di indirizzo ma colonne consecutive.
-Questo fa sì, come ho detto, che non è necessario riasserire ripetutamente RAS.
-Vediamo quindi che le SRAM, come ho detto, includono registi di dati oltre che l'Hatch per gli indirizzi.
+E' importante che l'esistenza dei contatori di colonna permettono di scandire la riga senza dover riasserire nuovamente il segnale di row address strobe per indirizzi contigui sulla stessa riga.
+Questo permette il trasferimento di più parole aventi la stessa riga di indirizzo ma colonne consecutive.
+Questo fa sì che non sia necessario riasserire ripetutamente RAS.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth,
+                    trim=30 30 30 30, % L B R T
+                    clip]
+                    {images/Lez04_p06_fig_02.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p06_fig_02}
+\end{figure}
+\FloatBarrier
+\noindent
+
+Vediamo quindi che le SDRAM includono registi di dati oltre che latch per gli indirizzi.
 Le nuove operazioni di accesso possono essere iniziate quando le precedenti sono ancora in transito grazie ai registi di ingresso e di uscita dei dati.
-E le configurazioni dei circuiti di controllo delle SRAM, la configurazione richiede una però configurazione all'accensione, cioè la SRAM deve essere educata sul da farsi.
-Il controllore della memoria inizializza semplicemente la memoria ma non deve più nuovamente rinfrescarla come avviene nelle DRAMs asincrone.
-Specifica inoltre il controllore, la lunghezza per il trasferimento a blocchi e i ritardi necessari per l'asincronizzazione.
+Le configurazioni dei circuiti di controllo delle SDRAM, la configurazione richiede una configurazione all'accensione, cioè la SDRAM deve essere educata sul da farsi.
+Il controllore della memoria inizializza semplicemente la memoria ma non deve più nuovamente rinfrescarla come avviene nelle DRAM asincrone.
+Il controllore specifica inoltre, la lunghezza per il trasferimento a blocchi e i ritardi necessari per la sincronizzazione.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth,
+                    trim=40 120 40 30, % L B R T
+                    clip]
+                    {images/Lez04_p06_fig_03.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p06_fig_03}
+\end{figure}
+\FloatBarrier
+\noindent
+
 Questo consente di ottenere trasferimenti a blocchi efficienti.
-Le DRAMs asincrone incorrono infatti i ritardi dovuti all'assersione di RAS e CAS per ogni indirizzo di colonna.
-In realtà, mentre nelle SRAM si riducono i ritardi asserendo colon address strobe solo per l'indirizzo iniziale di colonna e poi il contatore interno dei registi di colonna aggiorna gli indirizi e decodifica elementi sulla stessa riga di indirizzo ma con colonne consecutive.
-Il trasferimento a blocchi, abbiamo detto, è efficiente perché la circuteria delle SRAM incrementa il contatore di colonna e trasferisce automaticamente dati consecutivi.
-La lunghezza del BARST determina la lunghezza del trasferimento.
-BARST è un evento improvviso e veloce.
-Consideriamo ora, come esempio semplificato, un BARST di lunghezza 4, ritardo nel RAS di 3 cicli e di CAS nei 2 cicli.
+Le DRAM asincrone incorrono infatti i ritardi dovuti all'assersione di RAS e CAS per ogni indirizzo di colonna.
+Mentre nelle SDRAM si riducono i ritardi asserendo colon address strobe solo per l'indirizzo iniziale di colonna e poi il contatore interno dei registi di colonna aggiorna gli indirizi e decodifica elementi sulla stessa riga di indirizzo ma con colonne consecutive.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth,
+                    trim=40 40 40 30, % L B R T
+                    clip]
+                    {images/Lez04_p06_fig_04.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p06_fig_04}
+\end{figure}
+\FloatBarrier
+\noindent
+
+Il trasferimento a blocchi, abbiamo detto, è efficiente perché la circuteria delle SDRAM incrementa il contatore di colonna e trasferisce automaticamente dati consecutivi.
+La lunghezza del burst determina la lunghezza del trasferimento.
+burst è un evento improvviso e veloce.
+Consideriamo ora, come esempio semplificato, un burst di lunghezza 4, ritardo nel RAS di 3 cicli e di CAS nei 2 cicli.
 Questo è un esempio molto semplificativo ma ci permette di rappresentarlo graficamente sullo schermo.
 Nella realtà i ritardi sono sensibilmente più lunghi ma è utile dal punto di vista didattico.
+
+\FloatBarrier
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth,
+                    trim=40 40 40 30, % L B R T
+                    clip]
+                    {images/Lez04_p06_fig_05.png}
+  \caption{RAM dinamiche}
+  \label{fig:Lez04_p06_fig_05}
+\end{figure}
+\FloatBarrier
+\noindent
+
 Guardiamo quindi l'oscillogramma della nostra memoria in cui abbiamo un clock, i segnali di read-write, RAS e CAS negati, le linee di indirizzo e le linee di dati.
-Questa terminologia ci dice che qui avviene il dato, qui vengono messi gli indirizzi di riga, qui vengono messi gli indirizzi di colonna rispetto al clock, qui vengono prodotti i dati, quindi il resto dei dati e in alta impedenza non interessa, il segnale read-write alto, alto sta per read, il segnale RAS e CAS sono assediti bassi, notate che RAS è assedito prima perché prima si mandano gli indirizzi di riga, vedete il ritardo tra RAS e CAS è di tre cicli perché il tempo che RAS è assedito non si può assedire CAS prima che partano almeno tre cicli.
-Dopo che è assedito CAS con due cicli di latenza, compaiono i dati, quindi vedete che dopo l'assersione di CAS, le linee di dati sono assedite.
-Dopo due cicli sono disponibili i dati, questo è un esempio molto semplificativo, altrimenti avremmo avuto questo grafico molto più largo e meno visibile, infine abbiamo deciso che il nostro BARS è costituito di quattro dati che vengono tirati fuori sincroni sul fronte positivo del clock e quindi raccolti.
-Notate che se avessimo dovuto riassedire RAS e CAS per ognuno di questi dati, chiaramente i tempi sarebbero stati sensibilmente più lunghi.
+Questa terminologia ci dice che qui vengono messi gli indirizzi di riga, qui vengono messi gli indirizzi di colonna rispetto al clock, qui vengono prodotti i dati, quindi il resto dei dati.
+Il segnale read-write alto, alto sta per read, il segnale RAS e CAS sono asseriti bassi, notate che RAS è asserito prima perché prima si mandano gli indirizzi di riga, vedete il ritardo tra RAS e CAS è di tre cicli perché il tempo che RAS è asserito non si può assedire CAS prima che partano almeno tre cicli.
+Dopo che è asserito CAS con due cicli di latenza, compaiono i dati, quindi vedete che dopo l'assersione di CAS, le linee di dati sono asserite.
+Dopo due cicli sono disponibili i dati, questo è un esempio molto semplificativo, altrimenti avremmo avuto questo grafico molto più largo e meno visibile, infine abbiamo deciso che il nostro burst è costituito di quattro dati che vengono tirati fuori sincroni sul fronte positivo del clock e quindi raccolti.
+Notate che se avessimo dovuto riasserire RAS e CAS per ognuno di questi dati, chiaramente i tempi sarebbero stati sensibilmente più lunghi.
+
 Vi invito a fare il calcolo del vantaggio temporale avendo mantenuto le stesse tempistiche di RAS e CAS, quindi tre cicli per RAS e due di CAS, quanti cicli complessivi servirebbero nel caso in cui la memoria sia completamente asincrona invece che sincrona come la presente.
+
 Con questo vi do uno spunto per la riflessione e vi chiedo come si potrebbe ulteriormente incrementare la velocità rispetto al funzionamento sincrono sul fronte del clock.
-Con questo però questa curiosità ve la toglierò nella prossima lezione e quindi vi invito a riguardare con attenzione la lezione e a partecipare a seguire la prossima lezione che vi darà questa ed altre risposte.
